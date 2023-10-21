@@ -9,7 +9,7 @@ import { getFirestore } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const obj = {
- apiKey: "AIzaSyB7gafV7ZWHzHo9U7PekK9mqLI6JbHEYx0",
+ apiKey: process.env.FIREBASE_KEY,
   authDomain: "project1-e3076.firebaseapp.com",
   projectId: "project1-e3076",
   storageBucket: "project1-e3076.appspot.com",
