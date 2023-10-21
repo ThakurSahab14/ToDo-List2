@@ -3,7 +3,7 @@ module.exports = {
     async rewrites() {
         return [
             {
-                source: 'https://to-do-list14.vercel.app/frontpage',
+                source: '/frontpage',
                 destination: 'https://to-do-list14.vercel.app/api/sendMail',
             },
         ]
