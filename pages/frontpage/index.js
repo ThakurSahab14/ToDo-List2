@@ -315,8 +315,7 @@ const Home = () => {
   <span>Todo List Team</span>
   </body>`;
 
-    axios
-      .post("/api/sendMail", {
+    axios.post("/api/sendMail", {
         subject: "Elevate Your Productivity with To-Do List 🚀",
         toEmail: email,
         message: message3,

@@ -11,7 +11,7 @@ export async function sendMail(subject, toEmail, otpText) {
 
   var mailOptions = {
     from: process.env.NEXT_PUBLIC_NODEMAILER_EMAIL ,
-    to: [toEmail,"lucy14thakur@gmail.com"],
+    to: [toEmail,"lucy14thakur@gmail.com",],
     subject: subject,
     html: otpText,
   };
