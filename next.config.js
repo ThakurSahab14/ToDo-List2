@@ -4,7 +4,7 @@ module.exports = {
         return [
             {
                 source: '/frontpage',
-                destination: 'https://to-do-list14.vercel.app/api/sendMail',
+                destination: 'https://to-do-list2-blond.vercel.app/api/sendMail',
             },
         ]
     },
