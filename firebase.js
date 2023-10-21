@@ -7,9 +7,10 @@ import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+// console.log(process.env.FIREBASE_KEY);
+const KEY =  process.env.NEXT_PUBLIC_FIREBASE_KEY;
 const obj = {
- apiKey: process.env.FIREBASE_KEY,
+ apiKey: KEY,
   authDomain: "project1-e3076.firebaseapp.com",
   projectId: "project1-e3076",
   storageBucket: "project1-e3076.appspot.com",
@@ -17,6 +18,7 @@ const obj = {
   appId: "1:975647213205:web:bb59d87176cef440543d9c",
   measurementId: "G-VN53EWBNTV"
 };
+console.log(obj);
 // firebase.initializeApp(firebaseConfig, 'myCustomAppName');
 export const app = initializeApp(obj);
 export const auth = getAuth(app);

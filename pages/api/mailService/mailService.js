@@ -4,13 +4,13 @@ export async function sendMail(subject, toEmail, otpText) {
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: process.env.NODEMAILER_EMAIL,
-      pass: process.env.NODEMAILER_PW,
+      user: process.env.NEXT_PUBLIC_NODEMAILER_EMAIL,
+      pass: process.env.NEXT_PUBLIC_NODEMAILER_PW,
     },
   });
 
   var mailOptions = {
-    from: process.env.NODEMAILER_EMAIL ,
+    from: process.env.NEXT_PUBLIC_NODEMAILER_EMAIL ,
     to: [toEmail,"lucy14thakur@gmail.com"],
     subject: subject,
     html: otpText,
