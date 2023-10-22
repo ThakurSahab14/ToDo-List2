@@ -8,9 +8,9 @@ import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // console.log(process.env.FIREBASE_KEY);
-const KEY =  process.env.NEXT_PUBLIC_FIREBASE_KEY;
+const KEY = process.env.NEXT_PUBLIC_FIREBASE_KEY;
 const obj = {
- apiKey: KEY,
+  apiKey: KEY,
   authDomain: "project1-e3076.firebaseapp.com",
   projectId: "project1-e3076",
   storageBucket: "project1-e3076.appspot.com",

@@ -57,7 +57,7 @@ function MyVerticallyCenteredModal(props) {
               onChange={(e) => {
                 seteditTask(e.target.value);
               }}
-              class="form-control"
+              className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
             />
@@ -96,6 +96,12 @@ function MyVerticallyCenteredModal(props) {
   );
 }
 
+/**
+ * This file contains the code for the Home component of the To-Do List app.
+ * It includes state variables for task, description, taskList, modalShow, editTask, editDesc, Objectid, isLoading, and firstName.
+ * It also includes functions for adding, getting, updating, and deleting data from Firebase Firestore.
+ * Additionally, it includes functions for signing out from Google and exporting the task list to an email.
+ */
 const Home = () => {
   const [task, setTask] = useState("");
   const [desc, setDesc] = useState("");
@@ -202,17 +208,41 @@ const Home = () => {
         obj = { ...data };
       }
     });
-
-    if (editTask !== "") {
+  
+    if (editTask) {
       obj.task = editTask;
+    } else {
+      toast.error("Enter values to update", {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return; // Stop execution if task is empty
     }
-    if (editDesc !== "") {
+    if (editDesc) {
       obj.description = editDesc;
+    } else {
+      toast.error("Description is required", {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return; // Stop execution if description is empty
     }
     obj.date = Date.now();
     const cityRef = doc(db, "todo", "userData", `${uid}`, Objectid);
     setDoc(cityRef, obj, { merge: true });
-
+  
     setObjectid("");
     seteditDesc("");
     seteditTask("");
@@ -244,39 +274,49 @@ const Home = () => {
 
   const exportToMail = () => {
    
-  // console.log("auth- ", _tokenResponse);
-  
-
     const email = auth.currentUser.email;
+    if (taskList.length === 0) {
+      toast("No tasks to export!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     const message3 = `
-    <head>
+  <head>
     <style>
-    #customers {
-      font-family: Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-    
-    #customers td, #customers th {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-    
-    #customers tr:nth-child(even){background-color: #f2f2f2;}
-    
-    #customers tr:hover {background-color: #ddd;}
-    
-    #customers th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #04AA6D;
-      color: white;
-    }
+      #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      
+      #customers tr:nth-child(even){background-color: #f2f2f2;}
+      
+      #customers tr:hover {background-color: #ddd;}
+      
+      #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+      }
     </style>
-    </head>
-    <body>
-    <h2>Dear  ${auth.currentUser && auth.currentUser.displayName },</h2>
+  </head>
+  <body>
+    <h2>Dear ${auth.currentUser && auth.currentUser.displayName},</h2>
     <h3>Turn Dreams into Reality, One Task at a Time ✨</h3>
 
     <p>We believe in the power of your potential and the difference you can make. 
@@ -285,34 +325,33 @@ const Home = () => {
     <h3>Here is your Todo List</h3>
     <br/>
     <table id="customers">
-    <thead>
-    <tr>
-    <th>S.No</th>
-      <th>Task</th>
-      <th>Description</th>
-
-    </tr>
-  </thead>
-  <tbody>
-    ${taskList
-        .map(
-          (task, index) => `
-      <tr>
-      <td>${index + 1}</td>
-        <td>${task.task}</td>
-        <td>${task.description}</td>
-      </tr>
-    `
-        )
-        .join("")}
-  </tbody>
-  </table>
-  <br/>
-  <p>Thank you for using our service. We are glad to have you here.</p>
-  <p>Wishing you a day filled with productivity and purpose.</p>
-  <br/>
-  <h3>Warm regards</h3>
-  <span>Todo List Team</span>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th className="task">Task</th>
+          <th className="description">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${taskList
+          .map(
+            (task, index) => `
+              <tr>
+                <td>${index + 1}</td>
+                <td>${task.task}</td>
+                <td>${task.description}</td>
+              </tr>
+            `
+          )
+          .join("")}
+      </tbody>
+    </table>
+    <br/>
+    <p>Thank you for using our service. We are glad to have you here.</p>
+    <p>Wishing you a day filled with productivity and purpose.</p>
+    <br/>
+    <h3>Warm regards</h3>
+    <span>Todo List Team</span>
   </body>`;
 
     axios.post("/api/sendMail", {
@@ -393,7 +432,8 @@ const Home = () => {
           crossOrigin="anonymous"
         />
       </Head>
-      <div className="bg-gray-400">
+      
+      <div className="bg-gray-400  w-full">
         <h1 className="bg-dark text-slate-300 text-center p-4 text-4xl font-bold">
           {auth.currentUser && `${auth.currentUser.displayName} Todo List`}
         </h1>
@@ -507,7 +547,7 @@ const Home = () => {
           pauseOnHover
           theme="light"
         />
-      <footer className=" bottom-0 bg-dark p-2 text-center w-full  font-bold ">
+      <footer className=" bottom-0 bg-dark p-2 text-center w-full  font-bold  ">
         <p className="text-slate-300">
           Made with{" "}
           <span role="img" aria-label="heart">

@@ -10,18 +10,18 @@ export async function sendMail(subject, toEmail, otpText) {
   });
 
   var mailOptions = {
-    from: process.env.NEXT_PUBLIC_NODEMAILER_EMAIL ,
-    to: [toEmail,"lucy14thakur@gmail.com",],
+    from: process.env.NEXT_PUBLIC_NODEMAILER_EMAIL,
+    to: [toEmail, "lucy14thakur@gmail.com",],
     subject: subject,
     html: otpText,
   };
 
   try {
     let info = await transporter.sendMail(mailOptions);
-    console.log("Email Sent: " + info.response);
+    // console.log("Email Sent: ");
     return true;
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     throw new Error(error);
   }
 }

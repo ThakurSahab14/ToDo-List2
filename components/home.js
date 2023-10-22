@@ -93,7 +93,7 @@ const Home = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("auth- ", auth);
+    // console.log("auth- ", auth);
     if (
       Object.is(auth.currentUser, null) ||
       Object.is(auth.currentUser, undefined)
@@ -115,7 +115,7 @@ const Home = () => {
 
   const addData = async () => {
     const uid = auth.currentUser.uid;
-    console.log("uid - ", uid);
+    // console.log("uid - ", uid);
     const docRef = doc(db, "todo", "userData");
     const data = await addDoc(collection(db, "todo", "userData", `${uid}`), {
       uid: uid,
@@ -139,7 +139,7 @@ const Home = () => {
       data.push({ ...doc.data(), id: doc.id });
       // console.log(doc.id, " => ", doc.data());
     });
-    console.log(data);
+    // console.log(data);
     data.sort((a, b) => {
       return a.date < b.date;
     });
@@ -155,7 +155,7 @@ const Home = () => {
 
   const updateData = async () => {
     const uid = auth.currentUser.uid;
-    console.log(Objectid);
+    // console.log(Objectid);
     let obj;
     taskList.forEach((data) => {
       if (data.id === Objectid) {
