@@ -18,7 +18,7 @@ const obj = {
   appId: "1:975647213205:web:bb59d87176cef440543d9c",
   measurementId: "G-VN53EWBNTV"
 };
-console.log(obj);
+// console.log(obj);
 // firebase.initializeApp(firebaseConfig, 'myCustomAppName');
 export const app = initializeApp(obj);
 export const auth = getAuth(app);
