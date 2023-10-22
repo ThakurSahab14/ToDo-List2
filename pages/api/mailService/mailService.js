@@ -1,5 +1,5 @@
 var nodemailer = require("nodemailer");
-//-----------------------------------------------------------------------------
+
 export async function sendMail(subject, toEmail, otpText) {
   var transporter = nodemailer.createTransport({
     service: "gmail",
@@ -16,12 +16,12 @@ export async function sendMail(subject, toEmail, otpText) {
     html: otpText,
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      throw new Error(error);
-    } else {
-      console.log("Email Sent");
-      return true;
-    }
-  });
+  try {
+    let info = await transporter.sendMail(mailOptions);
+    console.log("Email Sent: " + info.response);
+    return true;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
 }
